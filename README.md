@@ -1,11 +1,12 @@
 # Video Saver Android
 
-GitHub Actions-ready Android project. The workflow installs Gradle directly, so a Gradle wrapper is not required.
+GitHub Actions-ready Android project.
 
-## Build on GitHub
-1. Extract this ZIP and upload all files to the `video-saver-android` repository.
-2. Open GitHub -> Actions -> Build Android APK.
-3. Click Run workflow.
-4. Open the completed run and download `video-saver-debug-apk` from Artifacts.
+## Build
+1. Upload the contents of this folder to the `video-saver-android` GitHub repository.
+2. Open **Actions** → **Build Android APK** → **Run workflow**.
+3. When it finishes, download the `video-saver-debug-apk` artifact.
 
-The app is intentionally limited to opening/saving direct media URLs that the user owns or is authorized to download; it does not bypass YouTube or Instagram restrictions.
+The project enables AndroidX and Jetpack Compose correctly for the Kotlin 2.0.21 toolchain.
+
+This app is intended for media URLs the user owns or is authorized to download. It does not bypass YouTube/Instagram access controls or platform restrictions.
