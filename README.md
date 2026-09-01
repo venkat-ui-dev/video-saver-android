@@ -1,17 +1,11 @@
-# Video Saver Android App
+# Video Saver Android
 
-This is a small Android starter app for saving/opening media URLs that the user owns or is authorized to download.
+GitHub Actions-ready Android project. The workflow installs Gradle directly, so a Gradle wrapper is not required.
 
-## Build APK
+## Build on GitHub
+1. Extract this ZIP and upload all files to the `video-saver-android` repository.
+2. Open GitHub -> Actions -> Build Android APK.
+3. Click Run workflow.
+4. Open the completed run and download `video-saver-debug-apk` from Artifacts.
 
-1. Install Android Studio.
-2. Open this folder as a project.
-3. Let Gradle sync.
-4. Select **Build > Build APK(s)**.
-5. The debug APK will be under:
-   `app/build/outputs/apk/debug/app-debug.apk`
-
-## Notes
-
-This app intentionally does not bypass YouTube/Instagram access controls or platform restrictions.
-For those services, use their official download/save mechanisms or a direct media URL for content you have permission to download.
+The app is intentionally limited to opening/saving direct media URLs that the user owns or is authorized to download; it does not bypass YouTube or Instagram restrictions.
