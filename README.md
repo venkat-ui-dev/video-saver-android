@@ -1,13 +1,17 @@
-# Video Saver Android
+# Instagram Saver — final build
 
-Builds an Android debug APK through GitHub Actions.
+This is a build-ready Android starter for a FastDL-style user experience:
+paste an Instagram URL, validate it, and continue to permitted/public media handling.
 
-## Build online
-1. Upload this project to the `video-saver-android` GitHub repository.
-2. Open **Actions → Build Android APK → Run workflow**.
-3. Wait for **Build debug APK** to finish.
-4. Open the workflow run and download the **video-saver-debug-apk** artifact.
+Important:
+- No Instagram login or password is collected.
+- No private-account bypass or access-control bypass is included.
+- An actual arbitrary Instagram media resolver requires an authorized API/backend or a permitted direct media URL. This project intentionally does not pretend to have such an API key.
+- The project is configured for AndroidX, Kotlin 2.0.21, Compose compiler plugin, Java 17, and Gradle 8+.
 
-The project uses Java 17 and Kotlin JVM target 17, so Java/Kotlin target compatibility is aligned for Gradle 8.7.
+## GitHub Actions
+Use JDK 17 and run:
+`./gradlew assembleDebug --no-daemon`
 
-The app does not bypass YouTube/Instagram access controls. Use official platform download/save features or direct media URLs you are authorized to save.
+APK:
+`app/build/outputs/apk/debug/app-debug.apk`
