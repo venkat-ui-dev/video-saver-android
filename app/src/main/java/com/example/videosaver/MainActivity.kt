@@ -18,78 +18,32 @@ import androidx.compose.ui.unit.dp
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { VideoSaverApp() }
-    }
-
-    @Composable
-    fun VideoSaverApp() {
-        var url by remember { mutableStateOf("") }
-        var message by remember { mutableStateOf("Paste a direct media URL you own or have permission to download.") }
-
-        MaterialTheme {
-            Surface(modifier = Modifier.fillMaxSize()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(Modifier.height(36.dp))
-                    Text("Video Saver", style = MaterialTheme.typography.headlineLarge)
-                    Spacer(Modifier.height(10.dp))
-                    Text(
-                        "Save permitted video files directly to your device.",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Spacer(Modifier.height(28.dp))
-
-                    OutlinedTextField(
-                        value = url,
-                        onValueChange = { url = it },
-                        modifier = Modifier.fillMaxWidth(),
-                        label = { Text("Video URL") },
-                        placeholder = { Text("https://example.com/video.mp4") },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
-                        singleLine = true
-                    )
-
-                    Spacer(Modifier.height(16.dp))
-
-                    Button(
-                        onClick = {
-                            val trimmed = url.trim()
-                            if (!URLUtil.isValidUrl(trimmed)) {
-                                message = "Please enter a valid URL."
-                            } else if (trimmed.contains("youtube.com") ||
-                                       trimmed.contains("youtu.be") ||
-                                       trimmed.contains("instagram.com")) {
-                                message = "For YouTube/Instagram, use the platform's official download/save features or a direct file URL you have permission to download."
-                            } else {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(trimmed))
-                                startActivity(intent)
-                                message = "Opened the media URL. Your browser/app can save it if the server permits downloading."
+        setContent {
+            MaterialTheme {
+                var url by remember { mutableStateOf("") }
+                var message by remember { mutableStateOf("Paste a direct media URL that you own or are authorized to download.") }
+                Surface(Modifier.fillMaxSize()) {
+                    Column(Modifier.fillMaxSize().padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Spacer(Modifier.height(40.dp))
+                        Text("Video Saver", style = MaterialTheme.typography.headlineLarge)
+                        Spacer(Modifier.height(8.dp))
+                        Text("Save permitted media files to your device.")
+                        Spacer(Modifier.height(28.dp))
+                        OutlinedTextField(url, { url = it }, Modifier.fillMaxWidth(), label = { Text("Video URL") }, placeholder = { Text("https://example.com/video.mp4") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri), singleLine = true)
+                        Spacer(Modifier.height(16.dp))
+                        Button(onClick = {
+                            val u = url.trim()
+                            when {
+                                !URLUtil.isValidUrl(u) -> message = "Please enter a valid URL."
+                                u.contains("youtube.com") || u.contains("youtu.be") || u.contains("instagram.com") -> message = "Use the platform's official save/download feature, or a direct media URL you have permission to download."
+                                else -> { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(u))); message = "Opened the URL. Saving depends on the server/browser permissions." }
                             }
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text("Open / Save")
+                        }, Modifier.fillMaxWidth()) { Text("Open / Save") }
+                        Spacer(Modifier.height(20.dp))
+                        Card(Modifier.fillMaxWidth()) { Text(message, Modifier.padding(16.dp)) }
+                        Spacer(Modifier.weight(1f))
+                        Text("Personal utility • authorized downloads only", style = MaterialTheme.typography.labelSmall)
                     }
-
-                    Spacer(Modifier.height(24.dp))
-
-                    Card(modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            message,
-                            modifier = Modifier.padding(16.dp),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-
-                    Spacer(Modifier.weight(1f))
-                    Text(
-                        "Personal-use utility • Download only content you are authorized to save.",
-                        style = MaterialTheme.typography.labelSmall
-                    )
                 }
             }
         }
